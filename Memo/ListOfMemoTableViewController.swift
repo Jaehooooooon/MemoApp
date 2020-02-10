@@ -21,7 +21,8 @@ class ListOfMemoTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.prefersLargeTitles = true
+//        navigationController?.navigationBar.prefersLargeTitles = true
+        tableView.reloadData()
     }
 
     // MARK: - Table view data source

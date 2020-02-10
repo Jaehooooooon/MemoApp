@@ -8,7 +8,9 @@
 
 import UIKit
 
-class NewMemoViewController: UIViewController {
+class NewMemoViewController: UIViewController, UITextViewDelegate {
+    @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var contentTextView: UITextView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,8 +18,41 @@ class NewMemoViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    @IBAction func save() {
+        guard let memo = contentTextView.text, memo.count > 0 else {
+            alert(message: "메모를 입력하세요")
+            return
+        }
+        var title = titleTextField.text
+        if title == "" { title = "무제" }
+        
+        let newMemo = Memo(title: title!, content: memo)
+        Memo.dummyMemoList.append(newMemo)
+        dismiss(animated: true, completion: nil)
+    }
+    
     @IBAction func cancel() {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textViewSetting()
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if contentTextView.text == "" {
+            textViewSetting()
+        }
+    }
+    
+    func textViewSetting() {
+        if contentTextView.text == "메모" {
+            contentTextView.text = ""
+            contentTextView.textColor = UIColor.black
+        } else if contentTextView.text == "" {
+            contentTextView.text = "메모"
+            contentTextView.textColor = UIColor.lightGray
+        }
     }
 
     /*
