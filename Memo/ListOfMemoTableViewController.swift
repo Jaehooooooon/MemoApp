@@ -21,8 +21,15 @@ class ListOfMemoTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        navigationController?.navigationBar.prefersLargeTitles = true
         tableView.reloadData()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
+            if let vc = segue.destination as? DetailOfMemoViewController {
+                vc.memo = Memo.dummyMemoList[indexPath.row]
+            }
+        }
     }
 
     // MARK: - Table view data source
