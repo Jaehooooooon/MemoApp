@@ -21,13 +21,14 @@ class ListOfMemoTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        DataManager.shared.fetchMemo()
         tableView.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
             if let vc = segue.destination as? DetailOfMemoViewController {
-                vc.memo = Memo.dummyMemoList[indexPath.row]
+                vc.memo = DataManager.shared.memoList[indexPath.row]
             }
         }
     }
@@ -36,13 +37,13 @@ class ListOfMemoTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return Memo.dummyMemoList.count
+        return DataManager.shared.memoList.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ListOfMemoTableViewCell.identifier, for: indexPath) as! ListOfMemoTableViewCell
 
-        cell.memo = Memo.dummyMemoList[indexPath.row]
+        cell.memo = DataManager.shared.memoList[indexPath.row]
         cell.update()
 
         return cell

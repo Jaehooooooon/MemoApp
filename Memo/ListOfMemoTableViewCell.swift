@@ -20,7 +20,7 @@ class ListOfMemoTableViewCell: UITableViewCell {
         dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
         if self.memo != nil {
             titleLabel.text = self.memo?.title
-            subtitleLabel.text = dateFormatter.string(from: self.memo!.insertDate)
+            subtitleLabel.text = dateFormatter.string(for: self.memo!.insertDate)
         }
     }
 

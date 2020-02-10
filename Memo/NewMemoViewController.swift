@@ -26,8 +26,9 @@ class NewMemoViewController: UIViewController, UITextViewDelegate {
         var title = titleTextField.text
         if title == "" { title = "무제" }
         
-        let newMemo = Memo(title: title!, content: memo)
-        Memo.dummyMemoList.append(newMemo)
+//        let newMemo = Memo(title: title!, content: memo)
+//        Memo.dummyMemoList.append(newMemo)
+        
         dismiss(animated: true, completion: nil)
     }
     
