@@ -9,12 +9,13 @@
 /* Begin PBXBuildFile section */
 		38CF679023F145FD00F51A7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CF678F23F145FD00F51A7F /* AppDelegate.swift */; };
 		38CF679223F145FD00F51A7F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CF679123F145FD00F51A7F /* SceneDelegate.swift */; };
-		38CF679423F145FD00F51A7F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CF679323F145FD00F51A7F /* ViewController.swift */; };
 		38CF679723F145FD00F51A7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38CF679523F145FD00F51A7F /* Main.storyboard */; };
 		38CF679923F145FE00F51A7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38CF679823F145FE00F51A7F /* Assets.xcassets */; };
 		38CF679C23F145FE00F51A7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38CF679A23F145FE00F51A7F /* LaunchScreen.storyboard */; };
 		38CF67A723F145FE00F51A7F /* MemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CF67A623F145FE00F51A7F /* MemoTests.swift */; };
 		38CF67B223F145FE00F51A7F /* MemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CF67B123F145FE00F51A7F /* MemoUITests.swift */; };
+		38CF67C023F148B800F51A7F /* ListOfMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CF67BF23F148B800F51A7F /* ListOfMemoViewController.swift */; };
+		38CF67C323F161FD00F51A7F /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CF67C223F161FD00F51A7F /* Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +39,6 @@
 		38CF678C23F145FD00F51A7F /* Memo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38CF678F23F145FD00F51A7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		38CF679123F145FD00F51A7F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		38CF679323F145FD00F51A7F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		38CF679623F145FD00F51A7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		38CF679823F145FE00F51A7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		38CF679B23F145FE00F51A7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +49,8 @@
 		38CF67AD23F145FE00F51A7F /* MemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		38CF67B123F145FE00F51A7F /* MemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoUITests.swift; sourceTree = "<group>"; };
 		38CF67B323F145FE00F51A7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		38CF67BF23F148B800F51A7F /* ListOfMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfMemoViewController.swift; sourceTree = "<group>"; };
+		38CF67C223F161FD00F51A7F /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +101,10 @@
 		38CF678E23F145FD00F51A7F /* Memo */ = {
 			isa = PBXGroup;
 			children = (
+				38CF67C123F161BD00F51A7F /* Model */,
 				38CF678F23F145FD00F51A7F /* AppDelegate.swift */,
 				38CF679123F145FD00F51A7F /* SceneDelegate.swift */,
-				38CF679323F145FD00F51A7F /* ViewController.swift */,
+				38CF67BF23F148B800F51A7F /* ListOfMemoViewController.swift */,
 				38CF679523F145FD00F51A7F /* Main.storyboard */,
 				38CF679823F145FE00F51A7F /* Assets.xcassets */,
 				38CF679A23F145FE00F51A7F /* LaunchScreen.storyboard */,
@@ -126,6 +129,14 @@
 				38CF67B323F145FE00F51A7F /* Info.plist */,
 			);
 			path = MemoUITests;
+			sourceTree = "<group>";
+		};
+		38CF67C123F161BD00F51A7F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				38CF67C223F161FD00F51A7F /* Model.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,9 +270,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38CF679423F145FD00F51A7F /* ViewController.swift in Sources */,
 				38CF679023F145FD00F51A7F /* AppDelegate.swift in Sources */,
 				38CF679223F145FD00F51A7F /* SceneDelegate.swift in Sources */,
+				38CF67C023F148B800F51A7F /* ListOfMemoViewController.swift in Sources */,
+				38CF67C323F161FD00F51A7F /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
