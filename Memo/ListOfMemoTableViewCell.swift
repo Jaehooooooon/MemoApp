@@ -12,6 +12,7 @@ class ListOfMemoTableViewCell: UITableViewCell {
     static let identifier = "ListOfMemoCell"
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
+    @IBOutlet weak var thumbnailImageView: UIImageView!
     let dateFormatter = DateFormatter()
     
     var memo: Memo?
@@ -20,7 +21,7 @@ class ListOfMemoTableViewCell: UITableViewCell {
         dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
         if self.memo != nil {
             titleLabel.text = self.memo?.title
-            subtitleLabel.text = dateFormatter.string(for: self.memo!.insertDate)
+            subtitleLabel.text = self.memo?.content
         }
     }
 

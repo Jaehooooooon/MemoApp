@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 class DataManager {
     static let shared = DataManager()
@@ -33,11 +34,28 @@ class DataManager {
         }
     }
     
-    func addNewMemo(_ title: String?,_ content: String?) {
+    func addNewMemo(_ title: String?,_ content: String?,_ images: [UIImage]?) {
         let newMemo = Memo(context: mainContext)
         newMemo.title = title
         newMemo.content = content
         newMemo.insertDate = Date()
+        
+        if let images = images {
+            let CDataArray = NSMutableArray();
+            for img in images{
+                let data : NSData = NSData(data: img.pngData()!)
+                CDataArray.add(data)
+            }
+            do {
+                let coreDataObject = try NSKeyedArchiver.archivedData(withRootObject: CDataArray, requiringSecureCoding: false)
+                newMemo.images = coreDataObject
+            } catch {
+                newMemo.images = nil
+                print("image error : ",error)
+            }
+        } else {
+            newMemo.images = nil
+        }
         memoList.insert(newMemo, at: 0)
         saveContext()
     }

@@ -100,7 +100,7 @@ class NewMemoViewController: UIViewController {
             DataManager.shared.saveContext()
             NotificationCenter.default.post(name: NewMemoViewController.memoDidChange, object: nil)
         } else {
-            DataManager.shared.addNewMemo(title, content)
+            DataManager.shared.addNewMemo(title, content, nil)
         }
         
         dismiss(animated: true, completion: nil)
