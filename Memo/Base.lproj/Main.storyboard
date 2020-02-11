@@ -17,20 +17,20 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ListOfMemoCell" id="nwc-ts-cKW" customClass="ListOfMemoTableViewCell" customModule="Memo" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="71.5"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="71"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nwc-ts-cKW" id="AR5-oo-ROk">
-                                    <rect key="frame" x="0.0" y="0.0" width="383" height="71.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="383" height="71"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YMG-0v-0Jb">
-                                            <rect key="frame" x="20" y="11" width="36" height="21.5"/>
+                                            <rect key="frame" x="20" y="11" width="36" height="21"/>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A1m-Mp-weB">
-                                            <rect key="frame" x="20" y="39.5" width="53" height="18"/>
+                                            <rect key="frame" x="20" y="39" width="53" height="18"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="18" id="nrS-jT-YFy"/>
                                             </constraints>
@@ -39,7 +39,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="c6H-wh-kFd">
-                                            <rect key="frame" x="317.5" y="7" width="57.5" height="57.5"/>
+                                            <rect key="frame" x="318" y="7" width="57" height="57"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="c6H-wh-kFd" secondAttribute="height" multiplier="1:1" id="val-KH-XU9"/>
                                             </constraints>
@@ -204,7 +204,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="메모" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Iqr-ts-6if">
-                                <rect key="frame" x="3" y="119" width="408" height="740"/>
+                                <rect key="frame" x="3" y="119" width="408" height="699"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -213,16 +213,25 @@
                                     <outlet property="delegate" destination="8MD-Lg-7Vl" id="Bfr-Gy-zC0"/>
                                 </connections>
                             </textView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f0y-2C-sUJ">
+                                <rect key="frame" x="0.0" y="818" width="414" height="49"/>
+                                <items>
+                                    <barButtonItem title="Item" id="AoE-IF-f4J"/>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="f0y-2C-sUJ" firstAttribute="centerX" secondItem="Iqr-ts-6if" secondAttribute="centerX" id="75U-Yl-qQ7"/>
+                            <constraint firstItem="Iqr-ts-6if" firstAttribute="bottom" secondItem="f0y-2C-sUJ" secondAttribute="top" id="7JE-45-T7L"/>
                             <constraint firstItem="opa-BM-Qur" firstAttribute="trailing" secondItem="Iqr-ts-6if" secondAttribute="trailing" constant="3" id="M0s-Vz-dlA"/>
                             <constraint firstItem="opa-BM-Qur" firstAttribute="trailing" secondItem="Oi6-A8-YSn" secondAttribute="trailing" constant="5" id="ORV-5U-8PU"/>
                             <constraint firstItem="Oi6-A8-YSn" firstAttribute="leading" secondItem="opa-BM-Qur" secondAttribute="leading" constant="5" id="Pfc-xj-ivL"/>
                             <constraint firstItem="Iqr-ts-6if" firstAttribute="leading" secondItem="opa-BM-Qur" secondAttribute="leading" constant="3" id="Q8b-wh-1fO"/>
+                            <constraint firstItem="opa-BM-Qur" firstAttribute="bottom" secondItem="Iqr-ts-6if" secondAttribute="bottom" constant="44" id="VcE-Lh-Mvc"/>
                             <constraint firstItem="Oi6-A8-YSn" firstAttribute="top" secondItem="opa-BM-Qur" secondAttribute="top" constant="5" id="WFe-ob-BcA"/>
                             <constraint firstItem="Iqr-ts-6if" firstAttribute="top" secondItem="Oi6-A8-YSn" secondAttribute="bottom" id="XYi-E0-lSj"/>
-                            <constraint firstItem="opa-BM-Qur" firstAttribute="bottom" secondItem="Iqr-ts-6if" secondAttribute="bottom" constant="3" id="ahR-bH-riV"/>
+                            <constraint firstItem="f0y-2C-sUJ" firstAttribute="leading" secondItem="5b8-qK-nDo" secondAttribute="leading" id="rFc-uT-Mbh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="opa-BM-Qur"/>
                     </view>
@@ -252,7 +261,7 @@
             <objects>
                 <navigationController id="t2s-EU-Vys" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="fzq-6x-N8i">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -284,6 +293,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="toe-BT-UxM"/>
+        <segue reference="HSc-i3-WpH"/>
     </inferredMetricsTieBreakers>
 </document>
