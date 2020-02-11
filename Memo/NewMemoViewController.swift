@@ -9,13 +9,22 @@
 import UIKit
 
 class NewMemoViewController: UIViewController, UITextViewDelegate {
+    var editTarget: Memo?
+    
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var contentTextView: UITextView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        if let memo = editTarget {
+            navigationItem.title = "메모 편집"
+            titleTextField.text = memo.title
+            contentTextView.textColor = UIColor.black
+            contentTextView.text = memo.content
+        } else {
+            navigationItem.title = "새 메모"
+        }
     }
     
     @IBAction func save() {
@@ -28,7 +37,14 @@ class NewMemoViewController: UIViewController, UITextViewDelegate {
         
 //        let newMemo = Memo(title: title!, content: memo)
 //        Memo.dummyMemoList.append(newMemo)
-        DataManager.shared.addNewMemo(title, content)
+        if let target = editTarget {
+            target.title = title
+            target.content = content
+            DataManager.shared.saveContext()
+            NotificationCenter.default.post(name: NewMemoViewController.memoDidChange, object: nil)
+        } else {
+            DataManager.shared.addNewMemo(title, content)
+        }
         
         dismiss(animated: true, completion: nil)
     }
@@ -67,4 +83,8 @@ class NewMemoViewController: UIViewController, UITextViewDelegate {
     }
     */
 
+}
+
+extension NewMemoViewController {
+    static let memoDidChange = Notification.Name(rawValue: "memoDidChange")
 }

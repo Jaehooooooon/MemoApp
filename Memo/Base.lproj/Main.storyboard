@@ -74,7 +74,11 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jq9-ah-4g7">
                                 <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                                 <items>
-                                    <barButtonItem title="Item" id="GL1-bP-l8w"/>
+                                    <barButtonItem systemItem="compose" id="GL1-bP-l8w">
+                                        <connections>
+                                            <segue destination="eNP-KO-ELI" kind="show" id="HSc-i3-WpH"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oNR-x3-BAr">
@@ -151,6 +155,9 @@
                         <viewLayoutGuide key="safeArea" id="0YW-fL-5uh"/>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="MGd-gY-2NW"/>
+                    <connections>
+                        <outlet property="memoTableView" destination="oNR-x3-BAr" id="55Y-Pe-Onw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oT4-dF-MxU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -218,7 +225,7 @@
             <objects>
                 <navigationController id="t2s-EU-Vys" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="fzq-6x-N8i">
-                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -234,6 +241,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eNP-KO-ELI" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="f4F-iF-ptT"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XuQ-qa-eBt">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -248,4 +256,7 @@
             <point key="canvasLocation" x="1759" y="-605"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="HSc-i3-WpH"/>
+    </inferredMetricsTieBreakers>
 </document>
