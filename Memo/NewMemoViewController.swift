@@ -41,7 +41,7 @@ class NewMemoViewController: UIViewController {
         navigationController?.presentationController?.delegate = nil
     }
     
-    @IBAction func save(_ sender: Any) {
+    @IBAction func save() {
         guard let content = contentTextView.text, content.count > 0, content != "메모" else {
             alert(message: "메모를 입력하세요")
             return
@@ -63,7 +63,7 @@ class NewMemoViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func cancel(_ sender: Any) {
+    @IBAction func cancel() {
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -116,12 +116,12 @@ extension NewMemoViewController: UIAdaptivePresentationControllerDelegate {
         let alert = UIAlertController(title: "알림", message: "편집한 내용을 저장할까요?", preferredStyle: .alert)
         
         let okAction = UIAlertAction(title: "확인", style: .default) { [weak self] (action) in
-            self?.save(action)
+            self?.save()
         }
         alert.addAction(okAction)
         
         let cancelAction = UIAlertAction(title: "취소", style: .cancel) { [weak self] (action) in
-            self?.cancel(action)
+            self?.cancel()
         }
         alert.addAction(cancelAction)
          
