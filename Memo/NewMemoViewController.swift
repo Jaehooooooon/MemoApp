@@ -8,8 +8,9 @@
 
 import UIKit
 
-class NewMemoViewController: UIViewController, UITextViewDelegate {
+class NewMemoViewController: UIViewController {
     var editTarget: Memo?
+    var originalMemoContent: String?
     
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var contentTextView: UITextView!
@@ -22,13 +23,26 @@ class NewMemoViewController: UIViewController, UITextViewDelegate {
             titleTextField.text = memo.title
             contentTextView.textColor = UIColor.black
             contentTextView.text = memo.content
+            originalMemoContent = memo.content
         } else {
             navigationItem.title = "새 메모"
         }
+        
+        contentTextView.delegate = self
     }
     
-    @IBAction func save() {
-        guard let content = contentTextView.text, content.count > 0 else {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.presentationController?.delegate = self
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.presentationController?.delegate = nil
+    }
+    
+    @IBAction func save(_ sender: Any) {
+        guard let content = contentTextView.text, content.count > 0, content != "메모" else {
             alert(message: "메모를 입력하세요")
             return
         }
@@ -49,18 +63,8 @@ class NewMemoViewController: UIViewController, UITextViewDelegate {
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func cancel() {
+    @IBAction func cancel(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
-    }
-    
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        textViewSetting()
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if contentTextView.text == "" {
-            textViewSetting()
-        }
     }
     
     func textViewSetting() {
@@ -83,6 +87,46 @@ class NewMemoViewController: UIViewController, UITextViewDelegate {
     }
     */
 
+}
+
+extension NewMemoViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        if let original = originalMemoContent, let edited = textView.text {
+            if #available(iOS 13.0, *) {
+                isModalInPresentation = original != edited
+            } else {
+                
+            }
+        }
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textViewSetting()
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if contentTextView.text == "" {
+            textViewSetting()
+        }
+    }
+}
+
+extension NewMemoViewController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+        let alert = UIAlertController(title: "알림", message: "편집한 내용을 저장할까요?", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "확인", style: .default) { [weak self] (action) in
+            self?.save(action)
+        }
+        alert.addAction(okAction)
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel) { [weak self] (action) in
+            self?.cancel(action)
+        }
+        alert.addAction(cancelAction)
+         
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 extension NewMemoViewController {
