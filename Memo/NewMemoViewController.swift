@@ -19,7 +19,7 @@ class NewMemoViewController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func save() {
-        guard let memo = contentTextView.text, memo.count > 0 else {
+        guard let content = contentTextView.text, content.count > 0 else {
             alert(message: "메모를 입력하세요")
             return
         }
@@ -28,6 +28,7 @@ class NewMemoViewController: UIViewController, UITextViewDelegate {
         
 //        let newMemo = Memo(title: title!, content: memo)
 //        Memo.dummyMemoList.append(newMemo)
+        DataManager.shared.addNewMemo(title, content)
         
         dismiss(animated: true, completion: nil)
     }
