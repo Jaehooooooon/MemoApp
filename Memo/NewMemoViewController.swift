@@ -9,15 +9,28 @@
 import UIKit
 
 class NewMemoViewController: UIViewController {
+    @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var contentTextView: UITextView!
+    
     var editTarget: Memo?
     var originalMemoContent: String?
     
-    @IBOutlet weak var titleTextField: UITextField!
-    @IBOutlet weak var contentTextView: UITextView!
-
+    var willShowToken: NSObjectProtocol?
+    var willHideToken: NSObjectProtocol?
+    
+    //MARK:-
+    deinit {
+        if let token = willShowToken {
+            NotificationCenter.default.removeObserver(token)
+        }
+        if let token = willHideToken {
+            NotificationCenter.default.removeObserver(token)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         if let memo = editTarget {
             navigationItem.title = "메모 편집"
             titleTextField.text = memo.title
@@ -29,15 +42,46 @@ class NewMemoViewController: UIViewController {
         }
         
         contentTextView.delegate = self
+        
+        willShowToken = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: OperationQueue.main, using: { [weak self] (noti) in
+            guard let strongSelf = self else { return }
+            
+            if let frame = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+                let height = frame.cgRectValue.height
+                var inset = strongSelf.contentTextView.contentInset
+                inset.bottom = height
+                strongSelf.contentTextView.contentInset = inset
+                
+                inset = strongSelf.contentTextView.verticalScrollIndicatorInsets
+                inset.bottom = height
+                strongSelf.contentTextView.verticalScrollIndicatorInsets = inset
+            }
+        })
+        
+        willHideToken = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: OperationQueue.main, using: { [weak self] (noti) in
+            guard let strongSelf = self else { return }
+            
+            var inset = strongSelf.contentTextView.contentInset
+            inset.bottom = 0
+            strongSelf.contentTextView.contentInset = inset
+            
+            inset = strongSelf.contentTextView.verticalScrollIndicatorInsets
+            inset.bottom = 0
+            strongSelf.contentTextView.verticalScrollIndicatorInsets = inset
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        contentTextView.becomeFirstResponder()
         navigationController?.presentationController?.delegate = self
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        contentTextView.resignFirstResponder()
         navigationController?.presentationController?.delegate = nil
     }
     
@@ -49,8 +93,8 @@ class NewMemoViewController: UIViewController {
         var title = titleTextField.text
         if title == "" { title = "무제" }
         
-//        let newMemo = Memo(title: title!, content: memo)
-//        Memo.dummyMemoList.append(newMemo)
+        //        let newMemo = Memo(title: title!, content: memo)
+        //        Memo.dummyMemoList.append(newMemo)
         if let target = editTarget {
             target.title = title
             target.content = content
@@ -76,17 +120,17 @@ class NewMemoViewController: UIViewController {
             contentTextView.textColor = UIColor.lightGray
         }
     }
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
 
 extension NewMemoViewController: UITextViewDelegate {
@@ -124,7 +168,7 @@ extension NewMemoViewController: UIAdaptivePresentationControllerDelegate {
             self?.cancel()
         }
         alert.addAction(cancelAction)
-         
+        
         present(alert, animated: true, completion: nil)
     }
 }

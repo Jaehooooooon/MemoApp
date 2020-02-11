@@ -10,8 +10,8 @@ import UIKit
 
 class DetailOfMemoViewController: UIViewController {
     @IBOutlet weak var memoTableView: UITableView!
-    var memo: Memo?
     
+    var memo: Memo?
     var token: NSObjectProtocol?
     
     let formatter: DateFormatter = {
@@ -23,15 +23,15 @@ class DetailOfMemoViewController: UIViewController {
     }()
     
     //MARK:-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination.children.first as? NewMemoViewController {
-            vc.editTarget = memo
-        }
-    }
-    
     deinit {
         if let token = token {
             NotificationCenter.default.removeObserver(token)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination.children.first as? NewMemoViewController {
+            vc.editTarget = memo
         }
     }
 
