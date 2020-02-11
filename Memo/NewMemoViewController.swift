@@ -34,7 +34,6 @@ class NewMemoViewController: UIViewController {
         if let memo = editTarget {
             navigationItem.title = "메모 편집"
             titleTextField.text = memo.title
-            contentTextView.textColor = UIColor.black
             contentTextView.text = memo.content
             originalMemoContent = memo.content
         } else {
@@ -114,7 +113,7 @@ class NewMemoViewController: UIViewController {
     func textViewSetting() {
         if contentTextView.text == "메모" {
             contentTextView.text = ""
-            contentTextView.textColor = UIColor.black
+            contentTextView.textColor = UIColor.label
         } else if contentTextView.text == "" {
             contentTextView.text = "메모"
             contentTextView.textColor = UIColor.lightGray
