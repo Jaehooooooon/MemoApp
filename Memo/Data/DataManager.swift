@@ -56,6 +56,7 @@ class DataManager {
         } else {
             newMemo.images = nil
         }
+        
         memoList.insert(newMemo, at: 0)
         saveContext()
     }

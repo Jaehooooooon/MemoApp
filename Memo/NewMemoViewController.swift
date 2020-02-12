@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewMemoViewController: UIViewController {
+class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var contentTextView: UITextView!
     
@@ -120,6 +120,65 @@ class NewMemoViewController: UIViewController {
         }
     }
     
+    //MARK:- Image
+/*    @IBAction func newImage(_ sender: Any) {
+        
+        let actionSheet = UIAlertController(title: "New Image", message: nil, preferredStyle: .actionSheet)
+        let camera = UIAlertAction(title: "Camera", style: .default, handler: { action in
+            let CameraPicker = UIImagePickerController()
+            CameraPicker.delegate = self
+            CameraPicker.sourceType = .camera
+            self.present(CameraPicker, animated: true, completion: nil)
+        })
+        let album = UIAlertAction(title: "Photos", style: .default, handler: { action in
+            let CameraPicker = UIImagePickerController()
+            CameraPicker.delegate = self
+            CameraPicker.sourceType = .photoLibrary
+            self.present(CameraPicker, animated: true, completion: nil)
+            
+        })
+        let delete = UIAlertAction(title: "Delete", style: .destructive, handler: { action in
+           self.NoteImage.image = #imageLiteral(resourceName: "2")
+           self.imageChanged = true
+        if (self.noteText.text != nil)
+        {
+            self.shareNote.isEnabled = false
+            
+        }
+        })
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        actionSheet.addAction(camera)
+        actionSheet.addAction(album)
+        if (self.NoteImage.image != #imageLiteral(resourceName: "2"))
+        {
+            actionSheet.addAction(delete)
+        }
+        actionSheet.addAction(cancel)
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    //Image Picker
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        dismiss(animated: true, completion: nil)
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        {
+            self.NoteImage.image = image
+            self.NoteImage.alpha = 0
+            self.imageChanged = true
+            UIView.animate(withDuration: 2)
+            {
+                self.NoteImage.alpha = 1
+                self.shareNote.isEnabled = true
+            }
+        }
+        
+    }
+*/
     /*
      // MARK: - Navigation
      
