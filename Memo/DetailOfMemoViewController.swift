@@ -43,10 +43,18 @@ class DetailOfMemoViewController: UIViewController {
         if let layout = imageCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }
+        
+        imageSetting()
+        
         token = NotificationCenter.default.addObserver(forName: NewMemoViewController.memoDidChange, object: nil, queue: OperationQueue.main, using: { [weak self] (noti) in
             self?.memoTableView.reloadData()
+            self?.originalImages.removeAll()
+            self?.imageSetting()
+            self?.imageCollectionView.reloadData()
         })
-        
+    }
+    
+    func imageSetting() {
         if let memo = memo {
             if let images = memo.images {
                 do {

@@ -15,6 +15,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
     var memoImage: UIImage?
 
     func update() {
+        self.memoImageView.image = nil
         if let image = memoImage {
             self.memoImageView.image = image
         }

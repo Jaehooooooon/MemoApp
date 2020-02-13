@@ -15,11 +15,11 @@ class ListOfMemoTableViewCell: UITableViewCell {
     @IBOutlet weak var thumbnailImageView: UIImageView!
     
     let dateFormatter = DateFormatter()
-    var thumbnailImage: UIImage?
     
     var memo: Memo?
     
     func update() {
+        self.thumbnailImageView.image = nil
         dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
         if self.memo != nil {
             titleLabel.text = self.memo?.title
