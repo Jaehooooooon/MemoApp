@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class NewMemoViewController: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var contentTextView: UITextView!
     @IBOutlet weak var imageCollectionView: UICollectionView!
@@ -183,20 +183,6 @@ class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         self.present(actionSheet, animated: true, completion: nil)
     }
-    //#imageLiteral(resourceName: "2")
-    //Image Picker
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let originalImage: UIImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            print("add image")
-            self.originalImages.append(originalImage)
-        }
-        self.imageCollectionView.reloadData()
-        self.dismiss(animated: true, completion: nil)
-    }
 
     /*
      // MARK: - Navigation
@@ -210,6 +196,23 @@ class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, 
     
 }
 
+// ImagePicker
+extension NewMemoViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let originalImage: UIImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            print("add image")
+            self.originalImages.append(originalImage)
+        }
+        self.imageCollectionView.reloadData()
+        self.dismiss(animated: true, completion: nil)
+    }
+}
+
+// TextView
 extension NewMemoViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         if let original = originalMemoContent, let edited = textView.text {
@@ -232,6 +235,7 @@ extension NewMemoViewController: UITextViewDelegate {
     }
 }
 
+// Modal attempt to dismiss
 extension NewMemoViewController: UIAdaptivePresentationControllerDelegate {
     func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
         let alert = UIAlertController(title: "알림", message: "편집한 내용을 저장할까요?", preferredStyle: .alert)
@@ -250,10 +254,12 @@ extension NewMemoViewController: UIAdaptivePresentationControllerDelegate {
     }
 }
 
+// Notification
 extension NewMemoViewController {
     static let memoDidChange = Notification.Name(rawValue: "memoDidChange")
 }
 
+// CollectionView
 extension NewMemoViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.originalImages.count
