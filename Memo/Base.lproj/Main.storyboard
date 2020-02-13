@@ -204,8 +204,11 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="메모" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Iqr-ts-6if">
-                                <rect key="frame" x="3" y="119" width="408" height="699"/>
+                                <rect key="frame" x="3" y="119" width="408" height="580"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="580" id="jzu-pl-e3N"/>
+                                </constraints>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -216,26 +219,80 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f0y-2C-sUJ">
                                 <rect key="frame" x="0.0" y="818" width="414" height="49"/>
                                 <items>
-                                    <barButtonItem systemItem="camera" id="AoE-IF-f4J"/>
+                                    <barButtonItem systemItem="camera" id="AoE-IF-f4J">
+                                        <connections>
+                                            <action selector="newImage:" destination="8MD-Lg-7Vl" id="Ari-nl-1Al"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="mQi-Sj-vxd"/>
                                     <barButtonItem systemItem="camera" id="mvs-p6-iVI">
                                         <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="111" estimatedRowHeight="111" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="Qxd-JS-lPu">
+                                <rect key="frame" x="0.0" y="707" width="414" height="111"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="111" id="2Pr-07-shT"/>
+                                </constraints>
+                                <color key="sectionIndexBackgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="imageTableViewCell" rowHeight="111" id="RKG-65-Lmb" customClass="ImageTableViewCell" customModule="Memo" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="111"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RKG-65-Lmb" id="Rzc-TO-FuX">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="111"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="G8m-7w-fyQ">
+                                                    <rect key="frame" x="151.5" y="0.0" width="111" height="111"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="G8m-7w-fyQ" secondAttribute="height" multiplier="1:1" id="GpF-vU-8RS"/>
+                                                        <constraint firstAttribute="width" constant="111" id="XuX-cH-uUe"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jiL-4P-CMB">
+                                                    <rect key="frame" x="0.0" y="64" width="144" height="47"/>
+                                                    <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="jiL-4P-CMB" firstAttribute="top" secondItem="Rzc-TO-FuX" secondAttribute="topMargin" constant="53" id="R2B-2w-4cO"/>
+                                                <constraint firstItem="G8m-7w-fyQ" firstAttribute="leading" secondItem="jiL-4P-CMB" secondAttribute="trailing" constant="7.5" id="Ybh-3v-ksu"/>
+                                                <constraint firstItem="jiL-4P-CMB" firstAttribute="bottom" secondItem="G8m-7w-fyQ" secondAttribute="bottom" id="eKo-DW-9R2"/>
+                                                <constraint firstItem="jiL-4P-CMB" firstAttribute="leading" secondItem="Rzc-TO-FuX" secondAttribute="leadingMargin" constant="-20" id="p4E-4f-NEB"/>
+                                                <constraint firstItem="G8m-7w-fyQ" firstAttribute="centerX" secondItem="Rzc-TO-FuX" secondAttribute="centerX" id="qq2-H3-Rs4"/>
+                                                <constraint firstItem="G8m-7w-fyQ" firstAttribute="centerY" secondItem="Rzc-TO-FuX" secondAttribute="centerY" id="x6Z-DD-gFw"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="memoImageView" destination="G8m-7w-fyQ" id="H5f-1A-X9R"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="8MD-Lg-7Vl" id="QSz-Ng-TyL"/>
+                                    <outlet property="delegate" destination="8MD-Lg-7Vl" id="ar0-WG-cef"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="f0y-2C-sUJ" firstAttribute="centerX" secondItem="Iqr-ts-6if" secondAttribute="centerX" id="75U-Yl-qQ7"/>
-                            <constraint firstItem="Iqr-ts-6if" firstAttribute="bottom" secondItem="f0y-2C-sUJ" secondAttribute="top" id="7JE-45-T7L"/>
+                            <constraint firstItem="Qxd-JS-lPu" firstAttribute="trailing" secondItem="f0y-2C-sUJ" secondAttribute="trailing" id="7S0-L0-kbk"/>
+                            <constraint firstItem="f0y-2C-sUJ" firstAttribute="top" secondItem="Qxd-JS-lPu" secondAttribute="bottom" id="BVM-In-DbC"/>
+                            <constraint firstItem="Qxd-JS-lPu" firstAttribute="centerX" secondItem="Iqr-ts-6if" secondAttribute="centerX" id="DOm-Z0-HdT"/>
                             <constraint firstItem="opa-BM-Qur" firstAttribute="trailing" secondItem="Iqr-ts-6if" secondAttribute="trailing" constant="3" id="M0s-Vz-dlA"/>
                             <constraint firstItem="opa-BM-Qur" firstAttribute="trailing" secondItem="Oi6-A8-YSn" secondAttribute="trailing" constant="5" id="ORV-5U-8PU"/>
                             <constraint firstItem="Oi6-A8-YSn" firstAttribute="leading" secondItem="opa-BM-Qur" secondAttribute="leading" constant="5" id="Pfc-xj-ivL"/>
                             <constraint firstItem="Iqr-ts-6if" firstAttribute="leading" secondItem="opa-BM-Qur" secondAttribute="leading" constant="3" id="Q8b-wh-1fO"/>
-                            <constraint firstItem="opa-BM-Qur" firstAttribute="bottom" secondItem="Iqr-ts-6if" secondAttribute="bottom" constant="44" id="VcE-Lh-Mvc"/>
                             <constraint firstItem="Oi6-A8-YSn" firstAttribute="top" secondItem="opa-BM-Qur" secondAttribute="top" constant="5" id="WFe-ob-BcA"/>
                             <constraint firstItem="Iqr-ts-6if" firstAttribute="top" secondItem="Oi6-A8-YSn" secondAttribute="bottom" id="XYi-E0-lSj"/>
+                            <constraint firstItem="Qxd-JS-lPu" firstAttribute="leading" secondItem="f0y-2C-sUJ" secondAttribute="leading" id="gqG-E8-TpG"/>
                             <constraint firstItem="f0y-2C-sUJ" firstAttribute="leading" secondItem="5b8-qK-nDo" secondAttribute="leading" id="rFc-uT-Mbh"/>
+                            <constraint firstItem="Qxd-JS-lPu" firstAttribute="top" secondItem="Iqr-ts-6if" secondAttribute="bottom" constant="8" id="uoq-gT-HXQ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="opa-BM-Qur"/>
                     </view>
@@ -253,6 +310,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="contentTextView" destination="Iqr-ts-6if" id="wpG-Yo-FIz"/>
+                        <outlet property="imageTableView" destination="Qxd-JS-lPu" id="sfW-s8-yea"/>
                         <outlet property="titleTextField" destination="Oi6-A8-YSn" id="ca1-Cd-osK"/>
                     </connections>
                 </viewController>

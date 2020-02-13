@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		385D5DC623F3F62200CA5CB0 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385D5DC523F3F62200CA5CB0 /* ImageTableViewCell.swift */; };
 		3875EC3223F1901600F75D07 /* Memo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3875EC3023F1901600F75D07 /* Memo.xcdatamodeld */; };
 		3875ECB323F1931C00F75D07 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3875ECB223F1931C00F75D07 /* DataManager.swift */; };
 		38CF679023F145FD00F51A7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CF678F23F145FD00F51A7F /* AppDelegate.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		385D5DC523F3F62200CA5CB0 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		3875EC3123F1901600F75D07 /* Memo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Memo.xcdatamodel; sourceTree = "<group>"; };
 		3875ECB223F1931C00F75D07 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		38CF678C23F145FD00F51A7F /* Memo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -94,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				3875ECB223F1931C00F75D07 /* DataManager.swift */,
+				3875EC3023F1901600F75D07 /* Memo.xcdatamodeld */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -129,9 +132,9 @@
 				38CF67C423F1663800F51A7F /* ListOfMemoTableViewController.swift */,
 				38CF67C623F1677600F51A7F /* ListOfMemoTableViewCell.swift */,
 				38CF67C823F16FDD00F51A7F /* NewMemoViewController.swift */,
+				385D5DC523F3F62200CA5CB0 /* ImageTableViewCell.swift */,
 				38CF67CE23F1866D00F51A7F /* DetailOfMemoViewController.swift */,
 				38CF679523F145FD00F51A7F /* Main.storyboard */,
-				3875EC3023F1901600F75D07 /* Memo.xcdatamodeld */,
 				38CF679823F145FE00F51A7F /* Assets.xcassets */,
 				38CF679A23F145FE00F51A7F /* LaunchScreen.storyboard */,
 				38CF679D23F145FE00F51A7F /* Info.plist */,
@@ -299,6 +302,7 @@
 				38CF67CF23F1866D00F51A7F /* DetailOfMemoViewController.swift in Sources */,
 				3875ECB323F1931C00F75D07 /* DataManager.swift in Sources */,
 				38CF679023F145FD00F51A7F /* AppDelegate.swift in Sources */,
+				385D5DC623F3F62200CA5CB0 /* ImageTableViewCell.swift in Sources */,
 				38CF679223F145FD00F51A7F /* SceneDelegate.swift in Sources */,
 				38CF67C323F161FD00F51A7F /* Model.swift in Sources */,
 				38CF67C923F16FDD00F51A7F /* NewMemoViewController.swift in Sources */,

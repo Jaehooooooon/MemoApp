@@ -8,12 +8,15 @@
 
 import UIKit
 
-class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDataSource {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var contentTextView: UITextView!
+    @IBOutlet weak var imageTableView: UITableView!
     
     var editTarget: Memo?
     var originalMemoContent: String?
+    var originalImages: [UIImage] = []
+//    let imagePicker: UIImagePickerController = UIImagePickerController()
     
     var willShowToken: NSObjectProtocol?
     var willHideToken: NSObjectProtocol?
@@ -36,11 +39,33 @@ class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, 
             titleTextField.text = memo.title
             contentTextView.text = memo.content
             originalMemoContent = memo.content
+            
+            if let images = memo.images {
+                do {
+                    let mySavedData = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self], from: images) as? NSArray
+                    if let mySavedData = mySavedData {
+                        for data in mySavedData {
+                            let image = UIImage(data: data as! Data)
+                            if let image = image {
+                                originalImages.append(image)
+                                print("image is appended")
+                            } else { print("unarchived image is nil") }
+                        }
+                    } else {
+                        print("mySavedData is nil")
+                    }
+                } catch {
+                    print("unarchived error : ",error)
+                }
+            }
         } else {
             navigationItem.title = "새 메모"
         }
         
         contentTextView.delegate = self
+//        imagePicker.sourceType = .photoLibrary
+//        imagePicker.delegate = self
+//        imagePicker.allowsEditing = true
         
         willShowToken = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: OperationQueue.main, using: { [weak self] (noti) in
             guard let strongSelf = self else { return }
@@ -92,8 +117,6 @@ class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, 
         var title = titleTextField.text
         if title == "" { title = "무제" }
         
-        //        let newMemo = Memo(title: title!, content: memo)
-        //        Memo.dummyMemoList.append(newMemo)
         if let target = editTarget {
             target.title = title
             target.content = content
@@ -120,10 +143,21 @@ class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
     }
     
-    //MARK:- Image
-/*    @IBAction func newImage(_ sender: Any) {
+    //MARK:- ImageTableView
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        self.originalImages.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: ImageTableViewCell.identifier, for: indexPath)
         
+        return cell
+    }
+    
+    //MARK:- Image
+    @IBAction func newImage(_ sender: Any) {
         let actionSheet = UIAlertController(title: "New Image", message: nil, preferredStyle: .actionSheet)
+        
         let camera = UIAlertAction(title: "Camera", style: .default, handler: { action in
             let CameraPicker = UIImagePickerController()
             CameraPicker.delegate = self
@@ -135,50 +169,37 @@ class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, 
             CameraPicker.delegate = self
             CameraPicker.sourceType = .photoLibrary
             self.present(CameraPicker, animated: true, completion: nil)
-            
         })
         let delete = UIAlertAction(title: "Delete", style: .destructive, handler: { action in
-           self.NoteImage.image = #imageLiteral(resourceName: "2")
-           self.imageChanged = true
-        if (self.noteText.text != nil)
-        {
-            self.shareNote.isEnabled = false
-            
-        }
+            //self.tableView(self.imageTableView, cellForRowAt: <#T##IndexPath#>)
         })
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
         actionSheet.addAction(camera)
         actionSheet.addAction(album)
-        if (self.NoteImage.image != #imageLiteral(resourceName: "2"))
-        {
-            actionSheet.addAction(delete)
-        }
+        if (self.originalImages.count != 0) { actionSheet.addAction(delete) }
         actionSheet.addAction(cancel)
+        
         self.present(actionSheet, animated: true, completion: nil)
     }
-    
+    //#imageLiteral(resourceName: "2")
     //Image Picker
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
-        dismiss(animated: true, completion: nil)
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage
-        {
-            self.NoteImage.image = image
-            self.NoteImage.alpha = 0
-            self.imageChanged = true
-            UIView.animate(withDuration: 2)
-            {
-                self.NoteImage.alpha = 1
-                self.shareNote.isEnabled = true
-            }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let originalImage: UIImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            print("add image")
+            self.originalImages.append(originalImage)
         }
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func selectDeleteImageButton() {
         
     }
-*/
+
     /*
      // MARK: - Navigation
      
