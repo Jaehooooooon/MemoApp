@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var contentTextView: UITextView!
     @IBOutlet weak var imageCollectionView: UICollectionView!
@@ -32,6 +32,7 @@ class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         if let layout = imageCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }
@@ -153,18 +154,6 @@ class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
     }
     
-    //MARK:- ImageCollectionView
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.originalImages.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as! ImageCollectionViewCell
-        cell.memoImage = self.originalImages[indexPath.row]
-        cell.update()
-        return cell
-    }
-    
     //MARK:- Image
     @IBAction func newImage(_ sender: Any) {
         let actionSheet = UIAlertController(title: "New Image", message: nil, preferredStyle: .actionSheet)
@@ -266,4 +255,17 @@ extension NewMemoViewController: UIAdaptivePresentationControllerDelegate {
 
 extension NewMemoViewController {
     static let memoDidChange = Notification.Name(rawValue: "memoDidChange")
+}
+
+extension NewMemoViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.originalImages.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as! ImageCollectionViewCell
+        cell.memoImage = self.originalImages[indexPath.row]
+        cell.update()
+        return cell
+    }
 }

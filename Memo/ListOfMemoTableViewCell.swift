@@ -13,7 +13,9 @@ class ListOfMemoTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var thumbnailImageView: UIImageView!
+    
     let dateFormatter = DateFormatter()
+    var thumbnailImage: UIImage?
     
     var memo: Memo?
     
@@ -22,6 +24,27 @@ class ListOfMemoTableViewCell: UITableViewCell {
         if self.memo != nil {
             titleLabel.text = self.memo?.title
             subtitleLabel.text = self.memo?.content
+            
+            if let images = memo!.images {
+                do {
+                    let mySavedData = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self], from: images) as? NSArray
+                    if let mySavedData = mySavedData, mySavedData.count > 0 {
+                        let data = mySavedData[0]
+                        let image = UIImage(data: data as! Data)
+                        if let image = image {
+                            DispatchQueue.main.async {
+                                self.thumbnailImageView.image = image
+                            }
+                        } else {
+                            print("unarchived image is nil")
+                        }
+                    } else {
+                        print("mySavedData is nil")
+                    }
+                } catch {
+                    print("unarchived error : ",error)
+                }
+            }
         }
     }
 

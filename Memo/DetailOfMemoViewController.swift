@@ -10,8 +10,10 @@ import UIKit
 
 class DetailOfMemoViewController: UIViewController {
     @IBOutlet weak var memoTableView: UITableView!
+    @IBOutlet weak var imageCollectionView: UICollectionView!
     
     var memo: Memo?
+    var originalImages: [UIImage] = []
     var token: NSObjectProtocol?
     
     let formatter: DateFormatter = {
@@ -38,9 +40,32 @@ class DetailOfMemoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        if let layout = imageCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+        }
         token = NotificationCenter.default.addObserver(forName: NewMemoViewController.memoDidChange, object: nil, queue: OperationQueue.main, using: { [weak self] (noti) in
             self?.memoTableView.reloadData()
         })
+        
+        if let memo = memo {
+            if let images = memo.images {
+                do {
+                    let mySavedData = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self], from: images) as? NSArray
+                    if let mySavedData = mySavedData {
+                        for data in mySavedData {
+                            let image = UIImage(data: data as! Data)
+                            if let image = image {
+                                originalImages.append(image)
+                            } else { print("unarchived image is nil") }
+                        }
+                    } else {
+                        print("mySavedData is nil")
+                    }
+                } catch {
+                    print("unarchived error : ",error)
+                }
+            }
+        }
     }
     
     @IBAction func deleteMemo(_ sender: Any) {
@@ -50,9 +75,9 @@ class DetailOfMemoViewController: UIViewController {
             DataManager.shared.deleteMemo(self?.memo)
             self?.navigationController?.popViewController(animated: true)
         }
-        alert.addAction(okAction)
-        
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+        alert.addAction(okAction)
         alert.addAction(cancelAction)
         
         present(alert, animated: true, completion: nil)
@@ -93,5 +118,18 @@ extension DetailOfMemoViewController: UITableViewDataSource {
         default:
             fatalError()
         }
+    }
+}
+
+extension DetailOfMemoViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.originalImages.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as! ImageCollectionViewCell
+        cell.memoImage = self.originalImages[indexPath.row]
+        cell.update()
+        return cell
     }
 }
