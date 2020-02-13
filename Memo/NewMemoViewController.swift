@@ -8,10 +8,10 @@
 
 import UIKit
 
-class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDataSource {
+class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var contentTextView: UITextView!
-    @IBOutlet weak var imageTableView: UITableView!
+    @IBOutlet weak var imageCollectionView: UICollectionView!
     
     var editTarget: Memo?
     var originalMemoContent: String?
@@ -20,7 +20,7 @@ class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, 
     var willShowToken: NSObjectProtocol?
     var willHideToken: NSObjectProtocol?
     
-    //MARK:-
+    //MARK:- Setting
     deinit {
         if let token = willShowToken {
             NotificationCenter.default.removeObserver(token)
@@ -32,7 +32,9 @@ class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        if let layout = imageCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+        }
         if let memo = editTarget {
             navigationItem.title = "메모 편집"
             titleTextField.text = memo.title
@@ -151,17 +153,15 @@ class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
     }
     
-    //MARK:- ImageTableView
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.originalImages.count
+    //MARK:- ImageCollectionView
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.originalImages.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ImageTableViewCell.identifier, for: indexPath) as! ImageTableViewCell
-        if self.originalImages.count != 0 {
-            cell.memoImage = self.originalImages[indexPath.row]
-            cell.update()
-        }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as! ImageCollectionViewCell
+        cell.memoImage = self.originalImages[indexPath.row]
+        cell.update()
         return cell
     }
     
@@ -204,7 +204,7 @@ class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, 
             print("add image")
             self.originalImages.append(originalImage)
         }
-        self.imageTableView.reloadData()
+        self.imageCollectionView.reloadData()
         self.dismiss(animated: true, completion: nil)
     }
     
