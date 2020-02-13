@@ -16,7 +16,6 @@ class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, 
     var editTarget: Memo?
     var originalMemoContent: String?
     var originalImages: [UIImage] = []
-//    let imagePicker: UIImagePickerController = UIImagePickerController()
     
     var willShowToken: NSObjectProtocol?
     var willHideToken: NSObjectProtocol?
@@ -63,9 +62,6 @@ class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
         
         contentTextView.delegate = self
-//        imagePicker.sourceType = .photoLibrary
-//        imagePicker.delegate = self
-//        imagePicker.allowsEditing = true
         
         willShowToken = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: OperationQueue.main, using: { [weak self] (noti) in
             guard let strongSelf = self else { return }
@@ -109,6 +105,7 @@ class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, 
         navigationController?.presentationController?.delegate = nil
     }
     
+    //MARK:- Memo
     @IBAction func save() {
         guard let content = contentTextView.text, content.count > 0, content != "메모" else {
             alert(message: "메모를 입력하세요")
@@ -120,10 +117,21 @@ class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, 
         if let target = editTarget {
             target.title = title
             target.content = content
+            let CDataArray = NSMutableArray();
+            for img in originalImages{
+                let data : NSData = NSData(data: img.pngData()!)
+                CDataArray.add(data)
+            }
+            do {
+                let coreDataObject = try NSKeyedArchiver.archivedData(withRootObject: CDataArray, requiringSecureCoding: false)
+                target.images = coreDataObject
+            } catch {
+                target.images = nil
+            }
             DataManager.shared.saveContext()
             NotificationCenter.default.post(name: NewMemoViewController.memoDidChange, object: nil)
         } else {
-            DataManager.shared.addNewMemo(title, content, nil)
+            DataManager.shared.addNewMemo(title, content, self.originalImages)
         }
         
         dismiss(animated: true, completion: nil)
@@ -149,8 +157,11 @@ class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ImageTableViewCell.identifier, for: indexPath)
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: ImageTableViewCell.identifier, for: indexPath) as! ImageTableViewCell
+        if self.originalImages.count != 0 {
+            cell.memoImage = self.originalImages[indexPath.row]
+            cell.update()
+        }
         return cell
     }
     
@@ -193,6 +204,7 @@ class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, 
             print("add image")
             self.originalImages.append(originalImage)
         }
+        self.imageTableView.reloadData()
         self.dismiss(animated: true, completion: nil)
     }
     
