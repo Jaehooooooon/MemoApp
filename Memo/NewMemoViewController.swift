@@ -171,7 +171,8 @@ class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, 
             self.present(CameraPicker, animated: true, completion: nil)
         })
         let delete = UIAlertAction(title: "Delete", style: .destructive, handler: { action in
-            //self.tableView(self.imageTableView, cellForRowAt: <#T##IndexPath#>)
+            self.originalImages.remove(at: 0)
+            self.imageCollectionView.reloadData()
         })
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
@@ -195,10 +196,6 @@ class NewMemoViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
         self.imageCollectionView.reloadData()
         self.dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func selectDeleteImageButton() {
-        
     }
 
     /*
