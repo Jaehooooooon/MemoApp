@@ -170,6 +170,47 @@ class NewMemoViewController: UIViewController {
             CameraPicker.sourceType = .photoLibrary
             self.present(CameraPicker, animated: true, completion: nil)
         })
+        let imageUrl = UIAlertAction(title: "URL", style: .default) { (action) in
+            let textAlert = UIAlertController(title: "입력", message: nil, preferredStyle: .alert)
+            textAlert.addTextField { (textField) in
+                textField.placeholder = "URL"
+            }
+            let ok = UIAlertAction(title: "OK", style: .default) { (ok) in
+                if let text = textAlert.textFields?[0].text, text.count > 0 {
+                        DispatchQueue.global().async {
+                            guard let imageURL: URL = URL(string: text) else {
+                                DispatchQueue.main.async {
+                                    self.alert(message: "URL이 유효하지 않습니다")
+                                }
+                                print("text가 유효하지 않음")
+                                return
+                            }
+                            guard let imageData: Data = try? Data(contentsOf: imageURL) else {
+                                DispatchQueue.main.async {
+                                    self.alert(message: "URL이 유효하지 않습니다")
+                                }
+                                print("url이 유효하지 않음")
+                                return
+                            }
+                            DispatchQueue.main.async {
+                                if let image = UIImage(data: imageData) {
+                                    self.originalImages.append(image)
+                                    self.imageCollectionView.reloadData()
+                                } else {
+                                    self.alert(message: "URL이 유효하지 않습니다")
+                                }
+                            }
+                        }
+                } else {
+                    self.alert(message: "URL을 입력하세요")
+                }
+            }
+            let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+            textAlert.addAction(cancel)
+            textAlert.addAction(ok)
+            
+            self.present(textAlert, animated: true, completion: nil)
+        }
         let delete = UIAlertAction(title: "Delete", style: .destructive, handler: { action in
             self.originalImages.remove(at: 0)
             self.imageCollectionView.reloadData()
@@ -178,6 +219,7 @@ class NewMemoViewController: UIViewController {
         
         actionSheet.addAction(camera)
         actionSheet.addAction(album)
+        actionSheet.addAction(imageUrl)
         if (self.originalImages.count != 0) { actionSheet.addAction(delete) }
         actionSheet.addAction(cancel)
         
