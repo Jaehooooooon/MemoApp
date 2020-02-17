@@ -117,9 +117,10 @@ class NewMemoViewController: UIViewController {
         var title = titleTextField.text
         if title == "" { title = "무제" }
         
-        if let target = editTarget {
+        if let target = editTarget {    //메모 편집본
             target.title = title
             target.content = content
+            
             let CDataArray = NSMutableArray();
             for img in originalImages{
                 let data : NSData = NSData(data: img.pngData()!)
@@ -133,7 +134,7 @@ class NewMemoViewController: UIViewController {
             }
             DataManager.shared.saveContext()
             NotificationCenter.default.post(name: NewMemoViewController.memoDidChange, object: nil)
-        } else {
+        } else {    //새 메모
             DataManager.shared.addNewMemo(title, content, self.originalImages)
         }
         
@@ -238,6 +239,7 @@ class NewMemoViewController: UIViewController {
     
 }
 
+//MARK:- Extension
 // ImagePicker
 extension NewMemoViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
