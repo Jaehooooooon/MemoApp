@@ -16,6 +16,7 @@ class NewMemoViewController: UIViewController {
     var editTarget: Memo?
     var originalMemoContent: String?
     var originalImages: [UIImage] = []
+    var CDataArray = NSMutableArray();
     
     var willShowToken: NSObjectProtocol?
     var willHideToken: NSObjectProtocol?
@@ -44,17 +45,14 @@ class NewMemoViewController: UIViewController {
             
             if let images = memo.images {
                 do {
-                    let mySavedData = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self], from: images) as? NSArray
-                    if let mySavedData = mySavedData {
-                        for data in mySavedData {
-                            let image = UIImage(data: data as! Data)
-                            if let image = image {
-                                originalImages.append(image)
-                                print("image is appended")
-                            } else { print("unarchived image is nil") }
-                        }
-                    } else {
-                        print("mySavedData is nil")
+                    self.CDataArray = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self], from: images) as! NSMutableArray
+
+                    for data in self.CDataArray {
+                        let image = UIImage(data: data as! Data)
+                        if let image = image {
+                            self.originalImages.append(image)
+                            print("image is appended")
+                        } else { print("unarchived image is nil") }
                     }
                 } catch {
                     print("unarchived error : ",error)
@@ -121,13 +119,8 @@ class NewMemoViewController: UIViewController {
             target.title = title
             target.content = content
             
-            let CDataArray = NSMutableArray();
-            for img in originalImages{
-                let data : NSData = NSData(data: img.pngData()!)
-                CDataArray.add(data)
-            }
             do {
-                let coreDataObject = try NSKeyedArchiver.archivedData(withRootObject: CDataArray, requiringSecureCoding: false)
+                let coreDataObject = try NSKeyedArchiver.archivedData(withRootObject: self.CDataArray, requiringSecureCoding: false)
                 target.images = coreDataObject
             } catch {
                 target.images = nil
@@ -135,7 +128,7 @@ class NewMemoViewController: UIViewController {
             DataManager.shared.saveContext()
             NotificationCenter.default.post(name: NewMemoViewController.memoDidChange, object: nil)
         } else {    //새 메모
-            DataManager.shared.addNewMemo(title, content, self.originalImages)
+            DataManager.shared.addNewMemo(title, content, self.CDataArray)
         }
         
         dismiss(animated: true, completion: nil)
@@ -196,6 +189,7 @@ class NewMemoViewController: UIViewController {
                             DispatchQueue.main.async {
                                 if let image = UIImage(data: imageData) {
                                     self.originalImages.append(image)
+                                    self.CDataArray.add(NSData(data: image.pngData()!))
                                     self.imageCollectionView.reloadData()
                                 } else {
                                     self.alert(message: "URL이 유효하지 않습니다")
@@ -214,6 +208,7 @@ class NewMemoViewController: UIViewController {
         }
         let delete = UIAlertAction(title: "Delete", style: .destructive, handler: { action in
             self.originalImages.remove(at: 0)
+            self.CDataArray.removeObject(at: 0)
             self.imageCollectionView.reloadData()
         })
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -250,6 +245,7 @@ extension NewMemoViewController: UIImagePickerControllerDelegate, UINavigationCo
         if let originalImage: UIImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             print("add image")
             self.originalImages.append(originalImage)
+            self.CDataArray.add(NSData(data: originalImage.pngData()!))
         }
         self.imageCollectionView.reloadData()
         self.dismiss(animated: true, completion: nil)

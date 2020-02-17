@@ -34,20 +34,15 @@ class DataManager {
         }
     }
     
-    func addNewMemo(_ title: String?,_ content: String?,_ images: [UIImage]?) {
+    func addNewMemo(_ title: String?,_ content: String?,_ images: NSMutableArray?) {
         let newMemo = Memo(context: mainContext)
         newMemo.title = title
         newMemo.content = content
         newMemo.insertDate = Date()
         
         if let images = images {
-            let CDataArray = NSMutableArray();
-            for img in images{
-                let data : NSData = NSData(data: img.pngData()!)
-                CDataArray.add(data)
-            }
             do {
-                let coreDataObject = try NSKeyedArchiver.archivedData(withRootObject: CDataArray, requiringSecureCoding: false)
+                let coreDataObject = try NSKeyedArchiver.archivedData(withRootObject: images, requiringSecureCoding: false)
                 newMemo.images = coreDataObject
             } catch {
                 newMemo.images = nil
