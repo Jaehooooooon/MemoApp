@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailOfImageViewController: UIViewController {
+class DetailOfImageViewController: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var imageView: UIImageView!
     var image: UIImage?
@@ -19,9 +19,30 @@ class DetailOfImageViewController: UIViewController {
         if let image = self.image {
             imageView.image = image
         }
+        
+        self.imageView.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(buttonTapped))
+        imageView.addGestureRecognizer(tapGesture)
+        
+        self.navigationController?.navigationBar.isHidden = true
+        self.tabBarController?.tabBar.isHidden = true
+        self.view.backgroundColor = UIColor.black
+    }
+
+    //ImageView의 TabGesture이벤트를 처리한다.
+    @objc func buttonTapped(sender: UITapGestureRecognizer) {
+        if (sender.state == .ended) {
+            print("tap")
+            self.navigationController?.navigationBar.isHidden = false
+            self.tabBarController?.tabBar.isHidden = false
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
-
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return self.imageView
+    }
+    
     /*
     // MARK: - Navigation
 
