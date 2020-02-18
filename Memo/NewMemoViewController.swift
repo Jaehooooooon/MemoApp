@@ -273,6 +273,10 @@ extension NewMemoViewController: UITextViewDelegate {
             textViewSetting()
         }
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+        self.view.endEditing(true)
+    }
 }
 
 // Modal attempt to dismiss
