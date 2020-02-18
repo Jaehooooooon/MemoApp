@@ -108,7 +108,7 @@ class NewMemoViewController: UIViewController {
     
     //MARK:- Memo
     @IBAction func save() {
-        guard let content = contentTextView.text, content.count > 0, content != "메모" else {
+        guard let content = contentTextView.text, content.count > 0, content != "메모를 입력하세요" else {
             alert(message: "메모를 입력하세요")
             return
         }
@@ -139,11 +139,11 @@ class NewMemoViewController: UIViewController {
     }
     
     func textViewSetting() {
-        if contentTextView.text == "메모" {
+        if contentTextView.text == "메모를 입력하세요" {
             contentTextView.text = ""
             contentTextView.textColor = UIColor.label
         } else if contentTextView.text == "" {
-            contentTextView.text = "메모"
+            contentTextView.text = "메모를 입력하세요"
             contentTextView.textColor = UIColor.lightGray
         }
     }
