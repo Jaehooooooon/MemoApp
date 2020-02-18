@@ -32,8 +32,17 @@ class DetailOfMemoViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination.children.first as? NewMemoViewController {
-            vc.editTarget = memo
+        if segue.identifier == "editSegueIdentifier" {
+            if let vc = segue.destination.children.first as? NewMemoViewController {
+                vc.editTarget = memo
+            }
+        } else if segue.identifier == "imageSegueIdentifier" {
+            if let vc = segue.destination as? DetailOfImageViewController {
+                guard let cell: ImageCollectionViewCell = sender as? ImageCollectionViewCell else {
+                    return
+                }
+                vc.image = cell.memoImage
+            }
         }
     }
 

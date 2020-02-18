@@ -106,7 +106,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="xxX-yx-6XJ"/>
                                     <barButtonItem systemItem="compose" id="GL1-bP-l8w">
                                         <connections>
-                                            <segue destination="eNP-KO-ELI" kind="show" id="HSc-i3-WpH"/>
+                                            <segue destination="eNP-KO-ELI" kind="show" identifier="editSegueIdentifier" id="HSc-i3-WpH"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -244,6 +244,21 @@
             </objects>
             <point key="canvasLocation" x="1757.9710144927537" y="79.6875"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="Nqj-d9-8hi">
+            <objects>
+                <viewController id="16u-PG-l5G" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VCS-dk-fhT">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Rc0-xH-p2m"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="K0n-TL-qgf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2616" y="80"/>
+        </scene>
         <!--새 메모-->
         <scene sceneID="6L3-Ls-qPq">
             <objects>
@@ -372,7 +387,7 @@
             <objects>
                 <navigationController id="t2s-EU-Vys" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="fzq-6x-N8i">
-                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -404,6 +419,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="toe-BT-UxM"/>
+        <segue reference="HSc-i3-WpH"/>
     </inferredMetricsTieBreakers>
 </document>

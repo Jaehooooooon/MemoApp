@@ -23,6 +23,7 @@
 		38CF67C923F16FDD00F51A7F /* NewMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CF67C823F16FDD00F51A7F /* NewMemoViewController.swift */; };
 		38CF67CB23F1718200F51A7F /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CF67CA23F1718200F51A7F /* AlertHelper.swift */; };
 		38CF67CF23F1866D00F51A7F /* DetailOfMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CF67CE23F1866D00F51A7F /* DetailOfMemoViewController.swift */; };
+		38F6084A23FC045400AD5201 /* DetailOfImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F6084923FC045400AD5201 /* DetailOfImageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		38CF67C823F16FDD00F51A7F /* NewMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMemoViewController.swift; sourceTree = "<group>"; };
 		38CF67CA23F1718200F51A7F /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
 		38CF67CE23F1866D00F51A7F /* DetailOfMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailOfMemoViewController.swift; sourceTree = "<group>"; };
+		38F6084923FC045400AD5201 /* DetailOfImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailOfImageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 				38CF67C823F16FDD00F51A7F /* NewMemoViewController.swift */,
 				385D5DC723F5695E00CA5CB0 /* ImageCollectionViewCell.swift */,
 				38CF67CE23F1866D00F51A7F /* DetailOfMemoViewController.swift */,
+				38F6084923FC045400AD5201 /* DetailOfImageViewController.swift */,
 				38CF679523F145FD00F51A7F /* Main.storyboard */,
 				38CF679823F145FE00F51A7F /* Assets.xcassets */,
 				38CF679A23F145FE00F51A7F /* LaunchScreen.storyboard */,
@@ -309,6 +312,7 @@
 				38CF67CB23F1718200F51A7F /* AlertHelper.swift in Sources */,
 				38CF67C523F1663800F51A7F /* ListOfMemoTableViewController.swift in Sources */,
 				3875EC3223F1901600F75D07 /* Memo.xcdatamodeld in Sources */,
+				38F6084A23FC045400AD5201 /* DetailOfImageViewController.swift in Sources */,
 				38CF67C723F1677600F51A7F /* ListOfMemoTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
