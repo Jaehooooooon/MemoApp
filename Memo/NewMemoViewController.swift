@@ -70,11 +70,11 @@ class NewMemoViewController: UIViewController {
             if let frame = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
                 let height = frame.cgRectValue.height
                 var inset = strongSelf.contentTextView.contentInset
-                inset.bottom = height
+                inset.bottom = height - 111
                 strongSelf.contentTextView.contentInset = inset
                 
                 inset = strongSelf.contentTextView.verticalScrollIndicatorInsets
-                inset.bottom = height
+                inset.bottom = height - 111
                 strongSelf.contentTextView.verticalScrollIndicatorInsets = inset
             }
         })
